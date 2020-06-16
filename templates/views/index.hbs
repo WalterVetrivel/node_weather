@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Weather App</title>
+</head>
+
+<body>
+    {{>navigation}}
+    <div class="container">
+        <main>
+            <header class="hero">
+                <h1 class="hero-title">{{title}}</h1>
+                <p class="hero-subtitle">{{subtitle}}</p>
+                <form class="weather-form">
+                    <label for="address">Enter location/address</label>
+                    <div class="input-group">
+                        <input type="text" id="address" name="address" placeholder="Eg., 20 Northern Street, Canberra"
+                            class="address-input" required>
+                        <button type="submit" class="btn-cta">Get Weather</button>
+                    </div>
+                    <small class="error hidden">Please enter an address</small>
+                </form>
+            </header>
+
+            <div class="weather">
+                <p class="weather-location">Location...</h3>
+                <p class="weather-status">
+                    Current Weather: <strong>Status...</strong>
+                </p>
+                <img src="img/icons/sun.svg" alt="Sun" class="weather-icon">
+                <small>
+                    Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
+                        href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+                </small>
+                <div class="weather-summary">
+                    It is currently 0&deg;C and it feels like 0&deg;C. The humidity is 0.
+                </div>
+            </div>
+        </main>
+    </div>
+    {{>footer}}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,270 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito|Quicksand");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: #171717;
+  line-height: 1.5;
+  background-image: repeating-linear-gradient(90deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 91px), repeating-linear-gradient(45deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 91px), repeating-linear-gradient(0deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 61px), repeating-linear-gradient(90deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 61px), repeating-linear-gradient(90deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 16px), repeating-linear-gradient(0deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 16px), -webkit-gradient(linear, left top, right top, from(#171717), to(#171717));
+  background-image: repeating-linear-gradient(90deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 91px), repeating-linear-gradient(45deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 91px), repeating-linear-gradient(0deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 61px), repeating-linear-gradient(90deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 61px), repeating-linear-gradient(90deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 16px), repeating-linear-gradient(0deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 16px), linear-gradient(90deg, #171717, #171717);
+}
+
+.container,
+.navbar-container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.navbar {
+  background-color: #0c0c0c;
+}
+
+.navbar-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.navbar-logo, .navbar-link {
+  display: inline-block;
+  text-decoration: none;
+  padding: 1.5em 1em;
+}
+
+.navbar-logo {
+  color: #cba135;
+  font-weight: bold;
+}
+
+.navbar-link {
+  color: #f3efe0;
+  -webkit-transition: color 0.5s ease-in-out;
+  transition: color 0.5s ease-in-out;
+}
+
+.navbar-link:hover {
+  color: #cba135;
+}
+
+.navbar-logo {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.navbar-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+}
+
+.hero {
+  padding: 3.5em 0;
+}
+
+.hero-title {
+  font-family: 'Quicksand', sans-serif;
+  color: #f3efe0;
+  width: 85%;
+  margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+  color: #727272;
+  margin-bottom: 1rem;
+}
+
+.weather-form {
+  text-align: center;
+}
+
+.weather-form label,
+.weather-form input {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.weather-form label {
+  text-align: left;
+  color: #f3efe0;
+}
+
+.weather-form input {
+  padding: 0.5rem;
+  width: 100%;
+  font: inherit;
+  border: 1px solid transparent;
+  outline: none;
+  background-color: #575757;
+  border-radius: 2px;
+  color: #f3efe0;
+}
+
+.weather-form input:focus {
+  border: 1px solid #cba135;
+}
+
+.weather-form button {
+  font: inherit;
+  border: 1px solid transparent;
+  outline: none;
+  background-color: #cba135;
+  padding: 0.5rem 0.75em;
+  border-radius: 2px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.weather-form small.error {
+  color: #f44336;
+}
+
+.weather-form input.error {
+  border: 1px solid #f44336;
+}
+
+.hidden {
+  display: none;
+}
+
+.weather {
+  background-color: #313131;
+  padding: 2em 1.25em;
+  border-radius: 2px;
+  text-align: center;
+  color: #f3efe0;
+  margin-bottom: 1em;
+}
+
+.weather-location, .weather-status {
+  margin-bottom: 1em;
+}
+
+.weather-location {
+  font-size: 1.1em;
+  text-transform: uppercase;
+}
+
+.weather-status strong {
+  color: #cba135;
+}
+
+.weather-icon {
+  display: block;
+  margin: 0 auto;
+  width: 75%;
+  margin-bottom: 1em;
+  max-width: 300px;
+}
+
+.weather small {
+  color: #bdbdbd;
+  margin-bottom: 1em;
+  display: block;
+}
+
+.weather a {
+  text-decoration: none;
+  color: #7fefbd;
+}
+
+.footer {
+  background-color: #171717;
+  padding: 2em;
+  text-align: center;
+  color: #f3efe0;
+}
+
+.footer-link {
+  color: #cba135;
+  text-decoration: none;
+}
+
+@media only screen and (min-width: 550px) {
+  .container,
+  .navbar-container {
+    width: 85%;
+  }
+}
+
+@media only screen and (min-width: 640px) {
+  .container,
+  .navbar-container {
+    width: 80%;
+  }
+}
+
+@media only screen and (min-width: 720px) {
+  .container,
+  .navbar-container {
+    width: 75%;
+  }
+  .weather-form {
+    text-align: left;
+  }
+  .input-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .input-group input,
+  .input-group button {
+    margin: 2px;
+  }
+  .input-group input {
+    width: 45%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  html,
+  body {
+    font-size: 18px;
+  }
+  main {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 4rem 0;
+  }
+  .hero {
+    padding: 0;
+  }
+  .hero-title {
+    font-size: 2.5em;
+  }
+  .hero,
+  .weather {
+    width: 48%;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  html,
+  body {
+    font-size: 20px;
+  }
+}
+/*# sourceMappingURL=style.css.map */

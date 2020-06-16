@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito|Quicksand');
+
+$color-dark: #0c0c0c;
+$color-dark-2: #171717;
+$color-light: #f3efe0;
+$color-primary: #cba135;
+$color-secondary: #7fefbd;
+$color-error: #f44336;
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Nunito', sans-serif;
+	background-color: $color-dark-2;
+	line-height: 1.5;
+	background-image: repeating-linear-gradient(
+			90deg,
+			hsla(240, 0%, 35%, 0.05) 0px,
+			hsla(240, 0%, 35%, 0.05) 1px,
+			transparent 1px,
+			transparent 91px
+		),
+		repeating-linear-gradient(
+			45deg,
+			hsla(240, 0%, 35%, 0.05) 0px,
+			hsla(240, 0%, 35%, 0.05) 1px,
+			transparent 1px,
+			transparent 91px
+		),
+		repeating-linear-gradient(
+			0deg,
+			hsla(240, 0%, 35%, 0.05) 0px,
+			hsla(240, 0%, 35%, 0.05) 1px,
+			transparent 1px,
+			transparent 61px
+		),
+		repeating-linear-gradient(
+			90deg,
+			hsla(240, 0%, 35%, 0.05) 0px,
+			hsla(240, 0%, 35%, 0.05) 1px,
+			transparent 1px,
+			transparent 61px
+		),
+		repeating-linear-gradient(
+			90deg,
+			hsla(240, 0%, 35%, 0.05) 0px,
+			hsla(240, 0%, 35%, 0.05) 1px,
+			transparent 1px,
+			transparent 16px
+		),
+		repeating-linear-gradient(
+			0deg,
+			hsla(240, 0%, 35%, 0.05) 0px,
+			hsla(240, 0%, 35%, 0.05) 1px,
+			transparent 1px,
+			transparent 16px
+		),
+		linear-gradient(90deg, rgb(23, 23, 23), rgb(23, 23, 23));
+}
+
+.container,
+.navbar-container {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.navbar {
+	background-color: $color-dark;
+
+	&-container {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	&-logo,
+	&-link {
+		display: inline-block;
+		text-decoration: none;
+		padding: 1.5em 1em;
+	}
+
+	&-logo {
+		color: $color-primary;
+		font-weight: bold;
+	}
+
+	&-link {
+		color: $color-light;
+		transition: color 0.5s ease-in-out;
+
+		&:hover {
+			color: $color-primary;
+		}
+	}
+
+	&-logo {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	&-nav {
+		display: flex;
+		list-style: none;
+	}
+}
+
+.hero {
+	padding: 3.5em 0;
+
+	&-title {
+		font-family: 'Quicksand', sans-serif;
+		color: $color-light;
+		width: 85%;
+		margin-bottom: 1rem;
+	}
+
+	&-subtitle {
+		color: lighten($color-dark, 40%);
+		margin-bottom: 1rem;
+	}
+}
+
+.weather-form {
+	text-align: center;
+
+	label,
+	input {
+		display: block;
+		margin-bottom: 0.5rem;
+	}
+
+	label {
+		text-align: left;
+		color: $color-light;
+	}
+
+	input {
+		padding: 0.5rem;
+		width: 100%;
+		font: inherit;
+		border: 1px solid transparent;
+		outline: none;
+		background-color: lighten($color: $color-dark-2, $amount: 25%);
+		border-radius: 2px;
+		color: $color-light;
+
+		&:focus {
+			border: 1px solid $color-primary;
+		}
+	}
+
+	button {
+		font: inherit;
+		border: 1px solid transparent;
+		outline: none;
+		background-color: $color-primary;
+		padding: 0.5rem 0.75em;
+		border-radius: 2px;
+		margin-bottom: 0.5rem;
+		cursor: pointer;
+	}
+
+	small.error {
+		color: $color-error;
+	}
+
+	input.error {
+		border: 1px solid $color-error;
+	}
+}
+
+.hidden {
+	display: none;
+}
+
+.weather {
+	background-color: lighten($color-dark-2, 10%);
+	padding: 2em 1.25em;
+	border-radius: 2px;
+	text-align: center;
+	color: $color-light;
+	margin-bottom: 1em;
+
+	&-location,
+	&-status {
+		margin-bottom: 1em;
+	}
+
+	&-location {
+		font-size: 1.1em;
+		text-transform: uppercase;
+	}
+
+	&-status strong {
+		color: $color-primary;
+	}
+
+	&-icon {
+		display: block;
+		margin: 0 auto;
+		width: 75%;
+		margin-bottom: 1em;
+		max-width: 300px;
+	}
+
+	small {
+		color: lighten($color-dark-2, 65%);
+		margin-bottom: 1em;
+		display: block;
+	}
+
+	a {
+		text-decoration: none;
+		color: $color-secondary;
+	}
+}
+
+.footer {
+	background-color: $color-dark-2;
+	padding: 2em;
+	text-align: center;
+	color: $color-light;
+
+	&-link {
+		color: $color-primary;
+		text-decoration: none;
+	}
+}
+
+@media only screen and (min-width: 550px) {
+	.container,
+	.navbar-container {
+		width: 85%;
+	}
+}
+
+@media only screen and (min-width: 640px) {
+	.container,
+	.navbar-container {
+		width: 80%;
+	}
+}
+
+@media only screen and (min-width: 720px) {
+	.container,
+	.navbar-container {
+		width: 75%;
+	}
+
+	.weather-form {
+		text-align: left;
+	}
+
+	.input-group {
+		display: flex;
+		justify-content: start;
+		align-items: center;
+
+		input,
+		button {
+			margin: 2px;
+		}
+
+		input {
+			width: 45%;
+		}
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	html,
+	body {
+		font-size: 18px;
+	}
+
+	main {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 4rem 0;
+	}
+
+	.hero {
+		padding: 0;
+
+		&-title {
+			font-size: 2.5em;
+		}
+	}
+
+	.hero,
+	.weather {
+		width: 48%;
+	}
+}
+
+@media only screen and (min-width: 1440px) {
+	html,
+	body {
+		font-size: 20px;
+	}
+}
