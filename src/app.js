@@ -33,13 +33,16 @@ app.get('/', (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-	res.render('about', { title: 'About' });
+	res.render('about', {
+		title: 'What is Weather Assistant?',
+		description:
+			"Weather Assistant is a simple weather app that lets you see a summary of the current weather at your location (determined by your browser's geolocation API, you can choose to allow or deny permission, your IP is used if you deny permission) or at any location around the world you choose to enter. Weather Assistant uses cutting-edge JavaScript on your browser, so it is recommended that you use the latest version of Microsoft Edge, Google Chrome, Mozilla Firefox or an equivalent browser and avoid using Microsoft Internet Explorer.",
+	});
 });
 
 app.get('/help', (req, res) => {
 	res.render('help', {
-		title: 'Help',
-		message: 'This is a help message.',
+		title: 'How to use Weather Assistant?',
 	});
 });
 

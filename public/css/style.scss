@@ -15,6 +15,7 @@ $color-error: #f44336;
 
 body {
 	font-family: 'Nunito', sans-serif;
+	color: $color-light;
 	background-color: $color-dark-2;
 	line-height: 1.5;
 	background-image: repeating-linear-gradient(
@@ -64,7 +65,7 @@ body {
 
 .container,
 .navbar-container {
-	width: 90%;
+	width: 88%;
 	margin: 0 auto;
 }
 
@@ -120,7 +121,7 @@ body {
 	}
 
 	&-subtitle {
-		color: lighten($color-dark, 40%);
+		color: lighten($color-dark-2, 50%);
 		margin-bottom: 1rem;
 	}
 }
@@ -220,6 +221,42 @@ body {
 	}
 }
 
+.about,
+.help {
+	padding: 2em 0;
+	min-height: 75vh;
+}
+
+.help {
+	ol {
+		width: 70%;
+	}
+}
+
+.page-heading {
+	font-family: 'Quicksand', sans-serif;
+	font-size: 2em;
+	margin-bottom: 1rem;
+	display: inline-block;
+
+	&::after {
+		content: '';
+		display: block;
+		height: 4px;
+		width: auto;
+		background-color: $color-primary;
+	}
+}
+
+.text {
+	color: lighten($color-dark-2, 50%);
+}
+
+.link {
+	color: $color-primary;
+	text-decoration: none;
+}
+
 .footer {
 	background-color: $color-dark-2;
 	padding: 2em;
@@ -297,11 +334,19 @@ body {
 	.weather {
 		width: 48%;
 	}
+
+	.about p {
+		width: 80%;
+	}
 }
 
 @media only screen and (min-width: 1440px) {
 	html,
 	body {
 		font-size: 20px;
+	}
+
+	.about p {
+		width: 75%;
 	}
 }

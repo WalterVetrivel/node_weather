@@ -8,6 +8,7 @@
 
 body {
   font-family: 'Nunito', sans-serif;
+  color: #f3efe0;
   background-color: #171717;
   line-height: 1.5;
   background-image: repeating-linear-gradient(90deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 91px), repeating-linear-gradient(45deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 91px), repeating-linear-gradient(0deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 61px), repeating-linear-gradient(90deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 61px), repeating-linear-gradient(90deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 16px), repeating-linear-gradient(0deg, rgba(89, 89, 89, 0.05) 0px, rgba(89, 89, 89, 0.05) 1px, transparent 1px, transparent 16px), -webkit-gradient(linear, left top, right top, from(#171717), to(#171717));
@@ -16,7 +17,7 @@ body {
 
 .container,
 .navbar-container {
-  width: 90%;
+  width: 88%;
   margin: 0 auto;
 }
 
@@ -80,7 +81,7 @@ body {
 }
 
 .hero-subtitle {
-  color: #727272;
+  color: #979797;
   margin-bottom: 1rem;
 }
 
@@ -178,6 +179,40 @@ body {
   color: #7fefbd;
 }
 
+.about,
+.help {
+  padding: 2em 0;
+  min-height: 75vh;
+}
+
+.help ol {
+  width: 70%;
+}
+
+.page-heading {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 2em;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.page-heading::after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: auto;
+  background-color: #cba135;
+}
+
+.text {
+  color: #979797;
+}
+
+.link {
+  color: #cba135;
+  text-decoration: none;
+}
+
 .footer {
   background-color: #171717;
   padding: 2em;
@@ -259,12 +294,18 @@ body {
   .weather {
     width: 48%;
   }
+  .about p {
+    width: 80%;
+  }
 }
 
 @media only screen and (min-width: 1440px) {
   html,
   body {
     font-size: 20px;
+  }
+  .about p {
+    width: 75%;
   }
 }
 /*# sourceMappingURL=style.css.map */

@@ -10,7 +10,26 @@
 
 <body>
     {{>navigation}}
-    <p>{{message}}</p>
+    <section class="help">
+        <div class="container">
+            <h1 class="page-heading">{{title}}</h1>
+            <ol class="text">
+                <li>When you first visit Weather Assistant, your browser will ask you whether you'd like to allow us to
+                    use your current location to get weather information.</li>
+                <li>If you click "Allow", Weather Assistant will fetch and display the current weather information for
+                    your location.</li>
+                <li>If you click "Block", Weather Assistant will use your IP to display the current weather for your
+                    location based on your IP address. This would depend on where your ISP is located and will vary if
+                    you're using a VPN.</li>
+                <li>To get the weather information for a different location, just type an address into the text input
+                    field labelled "Enter address/location" and click on the "Get Weather" button.</li>
+                <li>Alternatively, you can also hit Enter on your keyboard once you're entered an address.</li>
+                <li>Weather Assistant will fetch the current weather information for the location you entered and
+                    display it on your screen.</li>
+                <li>To start checking the weather, <a href="/" class="link">click here</a>.</li>
+            </ol>
+        </div>
+    </section>
     {{>footer}}
 </body>
 
