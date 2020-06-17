@@ -23,7 +23,10 @@
             <h1 class="page-heading">Powered By</h1>
             <div class="credits-wrapper">
                 {{#each credits}}
-                <p class="credit">{{this}}</p>
+                <p class="credit">
+                    {{this.name}}
+                    <a href="{{this.url}}" class="link" target="_blank" noreferrer noopener>Visit</a>
+                </p>
                 {{/each}}
             </div>
         </section>
