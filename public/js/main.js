@@ -70,7 +70,8 @@ const getIcon = status => {
 
 	if (status.includes('sun')) icon = 'sun';
 	else if (status.includes('partly')) icon = 'cloudy';
-	else if (status.includes('cloud')) icon = 'clouds';
+	else if (status.includes('cloud') || status.includes('overcast'))
+		icon = 'clouds';
 	else if (status.includes('rain')) icon = 'rain';
 	else if (status.includes('snow')) icon = 'snowflake';
 	else if (status.includes('thunder')) icon = 'bolt';
@@ -85,20 +86,29 @@ const setIcon = icon => {
 	iconElement.setAttribute('src', icon);
 };
 
-const getSummary = weather => {
+const getSummary = ({
+	temperature,
+	feelslike,
+	temperatureF,
+	feelslikeF,
+	humidity,
+} = {}) => {
 	let summary = '';
-	try {
-		summary = `It is currently ${parseInt(
-			weather.temperature
-		)}&deg;C and it feels like ${parseInt(
-			weather.temperature
-		)}&deg;C. The humidity is ${parseInt(weather.humidity)}.`;
 
-		return summary;
+	let className =
+		temperature < 18
+			? 'cold'
+			: temperature >= 18 && temperature <= 27
+			? 'warm'
+			: 'hot';
+
+	try {
+		summary = `It is currently <span class="${className}">${temperature}&deg;C (${temperatureF}&deg;F)</span> and it feels like <span class="${className}">${feelslike}&deg;C (${feelslikeF}&deg;F)</span>. The humidity is <strong>${humidity}</strong>.`;
 	} catch (err) {
-		summary = `It is currently 0&deg;C and it feels like 0&deg;C. The humidity is 0.`;
-		return summary;
+		summary = `No data.`;
 	}
+
+	return summary;
 };
 
 const setSummary = summary => {

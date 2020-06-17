@@ -10,12 +10,24 @@
 
 <body>
     {{>navigation}}
-    <section class="about">
-        <div class="container">
-            <h1 class="page-heading">{{title}}</h1>
-            <p class="text">{{description}}</p>
-        </div>
-    </section>
+    {{>watermark}}
+    <div class="container">
+        <section class="about">
+            <div class="about-content">
+                <h1 class="page-heading">{{title}}</h1>
+                <p class="text">{{description}}</p>
+            </div>
+            <img src="img/icons/cloudy.svg" alt="Cloudy" class="about-img">
+        </section>
+        <section class="credits">
+            <h1 class="page-heading">Powered By</h1>
+            <div class="credits-wrapper">
+                {{#each credits}}
+                <p class="credit">{{this}}</p>
+                {{/each}}
+            </div>
+        </section>
+    </div>
     {{>footer}}
 </body>
 

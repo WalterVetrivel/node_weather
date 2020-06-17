@@ -1,5 +1,5 @@
 const { getLocation } = require('../utils/location');
-const { getCurrentWeather } = require('../utils/weather');
+const { getCurrentWeather, celsiusToFahrenheit } = require('../utils/weather');
 
 const getWeather = async (req, res) => {
 	try {
@@ -10,10 +10,12 @@ const getWeather = async (req, res) => {
 		return res.status(200).json({
 			location: location.place_name,
 			weather: {
-				temperature: weather.temperature,
-				feelslike: weather.feelslike,
-				humidity: weather.humidity,
+				temperature: parseInt(weather.temperature),
+				feelslike: parseInt(weather.feelslike),
+				humidity: parseInt(weather.humidity),
 				status: weather.weather_descriptions[0],
+				temperatureF: celsiusToFahrenheit(weather.temperature),
+				feelslikeF: celsiusToFahrenheit(weather.feelslike),
 			},
 		});
 	} catch (err) {

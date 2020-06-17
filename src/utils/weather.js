@@ -18,4 +18,8 @@ const getCurrentWeather = async ({ lat, lng }) => {
 	}
 };
 
-module.exports = { getCurrentWeather };
+const celsiusToFahrenheit = tempC => {
+	return parseInt(tempC * (9 / 5) + 32);
+};
+
+module.exports = { getCurrentWeather, celsiusToFahrenheit };

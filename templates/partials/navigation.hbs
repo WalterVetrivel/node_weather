@@ -1,10 +1,12 @@
 <nav class="navbar">
     <div class="navbar-container">
-        <a href="/" class="navbar-logo">Weather Assistant</a>
+        <a href="/" class="navbar-logo">
+            <img src="img/icons/cloudy.svg" alt="Logo" class="navbar-logo-icon">Weather Assistant
+        </a>
         <ul class="navbar-nav">
-            <li class="navbar-item"><a class="navbar-link" href="/">Weather</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="/about">About</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="/help">Help</a></li>
+            <li class="navbar-item"><a class="navbar-link {{#if home}}active{{/if}}" href="/">Weather</a></li>
+            <li class="navbar-item"><a class="navbar-link {{#if about}}active{{/if}}" href="/about">About</a></li>
+            <li class="navbar-item"><a class="navbar-link {{#if help}}active{{/if}}" href="/help">Help</a></li>
         </ul>
     </div>
 </nav>
