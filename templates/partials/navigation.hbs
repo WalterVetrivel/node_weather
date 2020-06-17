@@ -8,5 +8,17 @@
             <li class="navbar-item"><a class="navbar-link {{#if about}}active{{/if}}" href="/about">About</a></li>
             <li class="navbar-item"><a class="navbar-link {{#if help}}active{{/if}}" href="/help">Help</a></li>
         </ul>
+        <button class="navbar-toggle">
+            <img src="img/menu.svg" alt="Menu" class="navbar-icon">
+        </button>
+        <div class="navbar-mobile hide-nav">
+            <button class="navbar-dismiss">Close X</button>
+            <ul class="navbar-mobile-nav">
+                <li class="navbar-item"><a class="navbar-link {{#if home}}active{{/if}}" href="/">Weather</a></li>
+                <li class="navbar-item"><a class="navbar-link {{#if about}}active{{/if}}" href="/about">About</a></li>
+                <li class="navbar-item"><a class="navbar-link {{#if help}}active{{/if}}" href="/help">Help</a></li>
+            </ul>
+        </div>
     </div>
+    {{>backdrop}}
 </nav>

@@ -82,10 +82,12 @@ body {
 
 .navbar {
 	background-color: $color-dark;
+	position: relative;
 
 	&-container {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 		flex-wrap: wrap;
 	}
 
@@ -122,8 +124,74 @@ body {
 	}
 
 	&-nav {
-		display: flex;
 		list-style: none;
+		display: none;
+	}
+
+	&-toggle {
+		background-color: transparent;
+		border: 0;
+		outline: none;
+	}
+
+	&-icon {
+		width: 40px;
+		cursor: pointer;
+	}
+
+	&-mobile {
+		position: fixed;
+		top: 0;
+		right: 0;
+		background-color: $color-dark-2;
+		padding-top: 2em;
+		width: 45%;
+		height: 100%;
+		z-index: 9999;
+		text-align: right;
+		transition: all 0.3s ease-in-out;
+
+		&-nav {
+			list-style: none;
+		}
+
+		.navbar-item,
+		.navbar-link {
+			display: block;
+			padding: 1em 0;
+		}
+
+		.navbar-link {
+			padding-right: 2em;
+		}
+
+		.navbar-dismiss {
+			background-color: transparent;
+			outline: none;
+			border: 0;
+			color: $color-light;
+			font: inherit;
+			display: block;
+			margin-left: auto;
+			margin-bottom: 1em;
+			margin-right: 2em;
+			color: lighten($color-dark-2, 50%);
+		}
+	}
+
+	.hide-nav {
+		transform: translateX(100%);
+		opacity: 0;
+	}
+
+	.backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background-color: rgba($color-dark, 0.4);
+		z-index: 999;
 	}
 }
 
@@ -291,6 +359,14 @@ body {
 	justify-content: center;
 }
 
+.help ol {
+	list-style-position: inside;
+
+	li:not(:last-of-type) {
+		margin-bottom: 0.5rem;
+	}
+}
+
 .page-heading {
 	font-family: 'Quicksand', sans-serif;
 	font-size: 1.75em;
@@ -361,6 +437,18 @@ body {
 	.container,
 	.navbar-container {
 		width: 75%;
+	}
+
+	.navbar {
+		&-nav {
+			display: flex;
+		}
+
+		&-toggle,
+		&-mobile,
+		.backdrop {
+			display: none;
+		}
 	}
 
 	.weather-form {

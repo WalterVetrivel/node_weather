@@ -34,6 +34,7 @@ body {
 
 .navbar {
   background-color: #0c0c0c;
+  position: relative;
 }
 
 .navbar-container {
@@ -43,6 +44,9 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
@@ -83,10 +87,76 @@ body {
 }
 
 .navbar-nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   list-style: none;
+  display: none;
+}
+
+.navbar-toggle {
+  background-color: transparent;
+  border: 0;
+  outline: none;
+}
+
+.navbar-icon {
+  width: 40px;
+  cursor: pointer;
+}
+
+.navbar-mobile {
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #171717;
+  padding-top: 2em;
+  width: 45%;
+  height: 100%;
+  z-index: 9999;
+  text-align: right;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-mobile-nav {
+  list-style: none;
+}
+
+.navbar-mobile .navbar-item,
+.navbar-mobile .navbar-link {
+  display: block;
+  padding: 1em 0;
+}
+
+.navbar-mobile .navbar-link {
+  padding-right: 2em;
+}
+
+.navbar-mobile .navbar-dismiss {
+  background-color: transparent;
+  outline: none;
+  border: 0;
+  color: #f3efe0;
+  font: inherit;
+  display: block;
+  margin-left: auto;
+  margin-bottom: 1em;
+  margin-right: 2em;
+  color: #979797;
+}
+
+.navbar .hide-nav {
+  -webkit-transform: translateX(100%);
+          transform: translateX(100%);
+  opacity: 0;
+}
+
+.navbar .backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(12, 12, 12, 0.4);
+  z-index: 999;
 }
 
 .hero {
@@ -263,6 +333,14 @@ body {
           justify-content: center;
 }
 
+.help ol {
+  list-style-position: inside;
+}
+
+.help ol li:not(:last-of-type) {
+  margin-bottom: 0.5rem;
+}
+
 .page-heading {
   font-family: 'Quicksand', sans-serif;
   font-size: 1.75em;
@@ -332,6 +410,15 @@ body {
   .container,
   .navbar-container {
     width: 75%;
+  }
+  .navbar-nav {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .navbar-toggle, .navbar-mobile,
+  .navbar .backdrop {
+    display: none;
   }
   .weather-form {
     text-align: left;
