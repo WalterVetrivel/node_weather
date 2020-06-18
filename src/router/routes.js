@@ -1,4 +1,5 @@
 const express = require('express');
+const { query } = require('express-validator');
 
 const { getWeather } = require('../controllers/weatherController');
 
@@ -36,7 +37,11 @@ router.get('/help', (req, res) => {
 	});
 });
 
-router.get('/weather', getWeather);
+router.get(
+	'/weather',
+	query('address').exists().trim().notEmpty().escape().blacklist('&;\\/*!$'),
+	getWeather
+);
 
 router.get('/help/*', (req, res) => {
 	res.render('404', {

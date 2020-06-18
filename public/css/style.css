@@ -7,7 +7,7 @@
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: "Nunito", sans-serif;
   color: #f3efe0;
   background-color: #171717;
   line-height: 1.5;
@@ -42,7 +42,7 @@ body {
 }
 
 .page-heading {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 1.75em;
   margin-bottom: 1rem;
   text-align: center;
@@ -180,22 +180,12 @@ body {
   opacity: 0;
 }
 
-.navbar .backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(12, 12, 12, 0.4);
-  z-index: 999;
-}
-
 .hero {
   padding: 3.5em 0;
 }
 
 .hero-title {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   color: #f3efe0;
   width: 85%;
   margin-bottom: 1rem;
@@ -393,6 +383,55 @@ body {
   text-align: center;
   color: #f3efe0;
   margin-top: 1em;
+}
+
+.modal {
+  background-color: #171717;
+  color: #f3efe0;
+  padding: 2em;
+  border-radius: 2px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.modal-title {
+  font-family: "Quicksand", sans-serif;
+}
+
+.modal-body {
+  padding: 1.25em 0;
+}
+
+.modal-btn {
+  display: block;
+  margin-left: auto;
+  font: inherit;
+  padding: 0.5em;
+  background-color: transparent;
+  border: 1px solid #cba135;
+  color: #cba135;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal-btn:hover {
+  background-color: #cba135;
+  color: #0c0c0c;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(12, 12, 12, 0.4);
+  z-index: 999;
 }
 
 .hidden {

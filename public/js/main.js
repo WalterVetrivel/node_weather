@@ -29,7 +29,7 @@ const getWeather = async address => {
 		const res = await axios.get(url);
 		return res.data;
 	} catch (err) {
-		console.log('Something went wrong.');
+		showPopup('Error', `Unable to fetch weather information for ${address}.`);
 	}
 };
 

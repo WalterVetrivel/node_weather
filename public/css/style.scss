@@ -6,6 +6,9 @@ $color-light: #f3efe0;
 $color-primary: #cba135;
 $color-secondary: #7fefbd;
 $color-error: #f44336;
+$title-font: 'Quicksand', sans-serif;
+$body-font: 'Nunito', sans-serif;
+$border-radius: 2px;
 
 * {
 	margin: 0;
@@ -14,7 +17,7 @@ $color-error: #f44336;
 }
 
 body {
-	font-family: 'Nunito', sans-serif;
+	font-family: $body-font;
 	color: $color-light;
 	background-color: $color-dark-2;
 	line-height: 1.5;
@@ -89,7 +92,7 @@ body {
 }
 
 .page-heading {
-	font-family: 'Quicksand', sans-serif;
+	font-family: $title-font;
 	font-size: 1.75em;
 	margin-bottom: 1rem;
 	text-align: center;
@@ -213,23 +216,13 @@ body {
 		transform: translateX(100%);
 		opacity: 0;
 	}
-
-	.backdrop {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100vw;
-		height: 100vh;
-		background-color: rgba($color-dark, 0.4);
-		z-index: 999;
-	}
 }
 
 .hero {
 	padding: 3.5em 0;
 
 	&-title {
-		font-family: 'Quicksand', sans-serif;
+		font-family: $title-font;
 		color: $color-light;
 		width: 85%;
 		margin-bottom: 1rem;
@@ -270,7 +263,7 @@ body {
 		border: 1px solid transparent;
 		outline: none;
 		background-color: lighten($color: $color-dark-2, $amount: 25%);
-		border-radius: 2px;
+		border-radius: $border-radius;
 		color: $color-light;
 
 		&:focus {
@@ -284,7 +277,7 @@ body {
 		outline: none;
 		background-color: $color-primary;
 		padding: 0.5rem 0.75em;
-		border-radius: 2px;
+		border-radius: $border-radius;
 		margin-bottom: 0.5rem;
 		cursor: pointer;
 	}
@@ -301,7 +294,7 @@ body {
 .weather {
 	background-color: lighten($color-dark-2, 10%);
 	padding: 2em 1.25em;
-	border-radius: 2px;
+	border-radius: $border-radius;
 	text-align: center;
 	color: $color-light;
 	margin-bottom: 1em;
@@ -377,7 +370,7 @@ body {
 .credit {
 	padding: 2em;
 	background-color: lighten($color-dark-2, 10%);
-	border-radius: 2px;
+	border-radius: $border-radius;
 	text-align: center;
 	font-size: 1.5em;
 	display: flex;
@@ -411,6 +404,53 @@ body {
 	text-align: center;
 	color: $color-light;
 	margin-top: 1em;
+}
+
+.modal {
+	background-color: $color-dark-2;
+	color: $color-light;
+	padding: 2em;
+	border-radius: $border-radius;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1000;
+
+	&-title {
+		font-family: $title-font;
+	}
+
+	&-body {
+		padding: 1.25em 0;
+	}
+
+	&-btn {
+		display: block;
+		margin-left: auto;
+		font: inherit;
+		padding: 0.5em;
+		background-color: transparent;
+		border: 1px solid $color-primary;
+		color: $color-primary;
+		cursor: pointer;
+		transition: all 0.3s ease-in-out;
+
+		&:hover {
+			background-color: $color-primary;
+			color: $color-dark;
+		}
+	}
+}
+
+.backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba($color-dark, 0.4);
+	z-index: 999;
 }
 
 .hidden {

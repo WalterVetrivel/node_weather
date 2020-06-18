@@ -21,13 +21,12 @@ const getLocation = async address => {
 		const res = await request({ baseUrl, url, json: true });
 
 		if (res.features.length === 0) {
-			return callback('Unable to find location.');
+			throw new Error('Unable to find location.');
 		}
 
 		const location = constructLocationObject(res);
 		return location;
 	} catch (err) {
-		console.log(err);
 		throw err;
 	}
 };

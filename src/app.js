@@ -2,7 +2,6 @@
 const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
-const sanitize = require('sanitize');
 
 const router = require('./router/routes');
 
@@ -21,9 +20,6 @@ hbs.registerPartials(PARTIALS_PATH);
 
 // Setting static directory
 app.use(express.static(PUBLIC_DIR_PATH));
-
-// Middleware
-app.use(sanitize.middleware);
 
 // Routes
 app.use(router);

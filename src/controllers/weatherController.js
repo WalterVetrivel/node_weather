@@ -1,9 +1,16 @@
+const { validationResult } = require('express-validator');
+
 const { getLocation } = require('../utils/location');
 const { getCurrentWeather, celsiusToFahrenheit } = require('../utils/weather');
 
 const getWeather = async (req, res) => {
 	try {
-		const address = req.queryString('address');
+		const result = validationResult(req);
+		if (!result.isEmpty()) {
+			return res.status(422).json({ errors: result.array() });
+		}
+
+		const address = req.query.address;
 		const location = await getLocation(address);
 		const weather = await getCurrentWeather(location.coordinates);
 
