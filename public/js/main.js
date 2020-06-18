@@ -23,10 +23,8 @@ const getLocationByIp = async ip => {
 	const url = '/location/ip';
 	try {
 		const res = await axios.get(url);
-		console.log(res);
 		return `${res.data.city}, ${res.data.regionName}`;
 	} catch (err) {
-		console.dir(err);
 		showToast(
 			'Cannot fetch location by IP. Using Canberra as default location.'
 		);
