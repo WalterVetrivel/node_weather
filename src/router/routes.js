@@ -2,6 +2,7 @@ const express = require('express');
 const { query } = require('express-validator');
 
 const { getWeather } = require('../controllers/weatherController');
+const { getLocation } = require('../controllers/locationController');
 
 const router = express.Router();
 
@@ -24,7 +25,7 @@ router.get('/about', (req, res) => {
 			{ name: 'Mapbox', url: 'https://www.mapbox.com/' },
 			{ name: 'IPStack', url: 'https://ipstack.com/' },
 			{ name: 'Ipify', url: 'https://www.ipify.org/' },
-			{ name: 'IP-API', url: 'https://ip-api.com/' },
+			{ name: 'IPInfo', url: 'https://ipinfo.io/' },
 			{ name: 'Flaticon', url: 'https://www.flaticon.com/' },
 		],
 	});
@@ -36,6 +37,8 @@ router.get('/help', (req, res) => {
 		title: 'How to use Weather Assistant?',
 	});
 });
+
+router.get('/location/ip', getLocation);
 
 router.get(
 	'/weather',

@@ -10,15 +10,27 @@ const weatherForm = document.querySelector('.weather-form');
 
 // Get Location
 const getIp = async () => {
-	const res = await axios.get('https://api.ipify.org?format=json');
-	const ip = res.data.ip;
-	return ip;
+	try {
+		const res = await axios.get('https://api.ipify.org?format=json');
+		const ip = res.data.ip;
+		return ip;
+	} catch (err) {
+		throw err;
+	}
 };
 
 const getLocationByIp = async ip => {
-	const url = `http://ip-api.com/json/${ip}`;
-	const res = await axios.get(url);
-	return `${res.data.city}, ${res.data.regionName}`;
+	const url = '/location/ip';
+	try {
+		const res = await axios.get(url);
+		console.log(res);
+		return `${res.data.city}, ${res.data.regionName}`;
+	} catch (err) {
+		showToast(
+			'Cannot fetch location by IP. Using Canberra as default location.'
+		);
+		return 'Canberra';
+	}
 };
 
 // Get Weather
@@ -29,30 +41,56 @@ const getWeather = async address => {
 		const res = await axios.get(url);
 		return res.data;
 	} catch (err) {
-		showPopup('Error', `Unable to fetch weather information for ${address}.`);
+		updateDOMError();
+		showPopup(
+			'Error',
+			`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
+		);
 	}
 };
 
 const getWeatherFromIp = async () => {
-	const ip = await getIp();
-	const location = await getLocationByIp(ip);
+	try {
+		const ip = await getIp();
+		const location = await getLocationByIp(ip);
 
-	await setWeather(location);
+		await setWeather(location);
+	} catch (err) {
+		updateDOMError();
+		showPopup(
+			'Error',
+			`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
+		);
+	}
 };
 
 const getWeatherFromCoords = async ({ coords } = {}) => {
-	const res = await axios.get(
-		`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.latitude}&longitude=${coords.longitude}`
-	);
+	try {
+		const res = await axios.get(
+			`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.latitude}&longitude=${coords.longitude}`
+		);
 
-	const location = `${res.data.city}, ${res.data.principalSubdivision}`;
+		if (!res.data.city) throw new Error();
 
-	await setWeather(location);
+		const location = `${res.data.city} ${res.data.principalSubdivision || ''}`;
+
+		await setWeather(location);
+	} catch (err) {
+		updateDOMError();
+		showPopup(
+			'Error',
+			`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
+		);
+	}
 };
 
 const setWeather = async location => {
-	const data = await getWeather(location);
-	updateDOM(data);
+	try {
+		const data = await getWeather(location);
+		updateDOM(data);
+	} catch (err) {
+		updateDOMError();
+	}
 };
 
 // Update Weather DOM
@@ -77,6 +115,8 @@ const getIcon = status => {
 	else if (status.includes('thunder')) icon = 'bolt';
 	else if (status.includes('hail')) icon = 'hail';
 	else if (status.includes('wind')) icon = 'wind';
+	else if (status.includes('loading')) icon = 'loading';
+	else if (status.includes('unknown')) icon = 'error';
 	else icon = 'sun';
 
 	return `img/icons/${icon}.svg`;
@@ -95,17 +135,19 @@ const getSummary = ({
 } = {}) => {
 	let summary = '';
 
-	let className =
-		temperature < 18
-			? 'cold'
-			: temperature >= 18 && temperature <= 27
-			? 'warm'
-			: 'hot';
-
 	try {
+		if (temperature === undefined) throw new Error();
+
+		let className =
+			temperature < 18
+				? 'cold'
+				: temperature >= 18 && temperature <= 27
+				? 'warm'
+				: 'hot';
+
 		summary = `It is currently <span class="${className}">${temperature}&deg;C (${temperatureF}&deg;F)</span> and it feels like <span class="${className}">${feelslike}&deg;C (${feelslikeF}&deg;F)</span>. The humidity is <strong>${humidity}</strong>.`;
 	} catch (err) {
-		summary = `No data.`;
+		summary = `No data. Please enter a different location or try again later.`;
 	}
 
 	return summary;
@@ -137,6 +179,13 @@ const setError = () => {
 const removeError = () => {
 	addressInput.classList.remove('error');
 	errorElement.classList.add('hidden');
+};
+
+const updateDOMError = () => {
+	updateDOM({
+		location: 'UNKNOWN, please enter a valid location',
+		weather: { status: 'Unknown', temperature: undefined },
+	});
 };
 
 // Event handlers

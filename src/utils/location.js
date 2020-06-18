@@ -11,6 +11,19 @@ const constructLocationObject = data => {
 	};
 };
 
+const getLocationFromIp = async ip => {
+	const baseUrl = process.env.IPINFO_URL;
+	const url = `/${ip}?token=${process.env.IPINFO_API_KEY}`;
+
+	try {
+		const res = await request({ baseUrl, url, json: true });
+		if (!res.city) throw new Error('Location not found');
+		return { city: res.city, regionName: res.region };
+	} catch (err) {
+		throw err;
+	}
+};
+
 const getLocation = async address => {
 	const baseUrl = process.env.MAPBOX_URL;
 	const url = `/${encodeURIComponent(address)}.json?access_token=${
@@ -31,4 +44,4 @@ const getLocation = async address => {
 	}
 };
 
-module.exports = { getLocation };
+module.exports = { getLocation, getLocationFromIp };
