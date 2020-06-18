@@ -1,7 +1,12 @@
+const requestIp = require('request-ip');
 const { getLocationFromIp } = require('../utils/location');
 
 const getLocation = async (req, res) => {
-	const ip = req.connection.remoteAddress;
+	let ip = requestIp.getClientIp(req);
+	if (ip.startsWith('::ffff:')) {
+		ip = ip.slice(7);
+	}
+
 	try {
 		const location = await getLocationFromIp(ip);
 		return res.status(200).json(location);
