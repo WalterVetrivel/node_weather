@@ -172,6 +172,7 @@ body {
   margin-bottom: 1em;
   margin-right: 2em;
   color: #979797;
+  cursor: pointer;
 }
 
 .navbar .hide-nav {
@@ -238,7 +239,7 @@ body {
   border: 1px solid #cba135;
 }
 
-.weather-form button {
+.weather-form .btn-cta {
   font: inherit;
   border: 1px solid transparent;
   outline: none;
@@ -247,6 +248,12 @@ body {
   border-radius: 2px;
   margin-bottom: 0.5rem;
   cursor: pointer;
+  -webkit-transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.weather-form .btn-cta:hover {
+  background-color: #f3efe0;
 }
 
 .weather-form small.error {
@@ -494,7 +501,7 @@ body {
             align-items: center;
   }
   .input-group input,
-  .input-group button {
+  .input-group .btn-cta {
     margin: 2px;
   }
   .input-group input {

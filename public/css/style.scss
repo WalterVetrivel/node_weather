@@ -209,6 +209,7 @@ body {
 			margin-bottom: 1em;
 			margin-right: 2em;
 			color: lighten($color-dark-2, 50%);
+			cursor: pointer;
 		}
 	}
 
@@ -271,7 +272,7 @@ body {
 		}
 	}
 
-	button {
+	.btn-cta {
 		font: inherit;
 		border: 1px solid transparent;
 		outline: none;
@@ -280,6 +281,11 @@ body {
 		border-radius: $border-radius;
 		margin-bottom: 0.5rem;
 		cursor: pointer;
+		transition: background-color 0.3s ease-in-out;
+
+		&:hover {
+			background-color: $color-light;
+		}
 	}
 
 	small.error {
@@ -513,7 +519,7 @@ body {
 		align-items: center;
 
 		input,
-		button {
+		.btn-cta {
 			margin: 2px;
 		}
 

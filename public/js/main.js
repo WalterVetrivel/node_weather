@@ -40,7 +40,7 @@ const getWeatherFromIp = async () => {
 	await setWeather(location);
 };
 
-const getWeatherFromCoords = async ({ coords }) => {
+const getWeatherFromCoords = async ({ coords } = {}) => {
 	const res = await axios.get(
 		`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.latitude}&longitude=${coords.longitude}`
 	);
@@ -115,7 +115,7 @@ const setSummary = summary => {
 	summaryElement.innerHTML = summary;
 };
 
-const updateDOM = ({ location, weather }) => {
+const updateDOM = ({ location, weather } = {}) => {
 	setLocation(location);
 	setStatus(weather.status);
 	setIcon(getIcon(weather.status));

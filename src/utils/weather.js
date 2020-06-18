@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const getCurrentWeather = async ({ lat, lng }) => {
+const getCurrentWeather = async ({ lat, lng } = {}) => {
 	const baseUrl = process.env.WEATHERSTACK_URL;
 	const url = `/current?access_key=${process.env.WEATHERSTACK_API_KEY}&query=${lat},${lng}&units=m`;
 
