@@ -26,6 +26,7 @@ const getLocationByIp = async ip => {
 		console.log(res);
 		return `${res.data.city}, ${res.data.regionName}`;
 	} catch (err) {
+		console.dir(err);
 		showToast(
 			'Cannot fetch location by IP. Using Canberra as default location.'
 		);
