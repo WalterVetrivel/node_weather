@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 
 const { getLocation } = require('../utils/location');
-const { getCurrentWeather, celsiusToFahrenheit } = require('../utils/weather');
+const { getWeatherData, constructWeatherObject } = require('../utils/weather');
 
 const getWeather = async (req, res) => {
 	try {
@@ -12,19 +12,20 @@ const getWeather = async (req, res) => {
 
 		const address = req.query.address;
 		const location = await getLocation(address);
-		const weather = await getCurrentWeather(location.coordinates);
+		const weather = await getWeatherData(location.coordinates);
 
-		return res.status(200).json({
+		const weatherData = {
 			location: location.place_name,
-			weather: {
-				temperature: parseInt(weather.temperature),
-				feelslike: parseInt(weather.feelslike),
-				humidity: parseInt(weather.humidity),
-				status: weather.weather_descriptions[0],
-				temperatureF: celsiusToFahrenheit(weather.temperature),
-				feelslikeF: celsiusToFahrenheit(weather.feelslike),
-			},
-		});
+			weather: constructWeatherObject(weather.current),
+			hourly: weather.hourly
+				.slice(1, 6)
+				.map(weather => constructWeatherObject(weather)),
+			daily: weather.daily
+				.slice(1, 6)
+				.map(weather => constructWeatherObject(weather)),
+		};
+
+		return res.status(200).json(weatherData);
 	} catch (err) {
 		return res.status(500).json({ statusCode: 500, error: err });
 	}

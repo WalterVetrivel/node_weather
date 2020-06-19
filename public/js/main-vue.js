@@ -15,6 +15,8 @@ const weatherApp = new Vue({
 			feelslike: 0,
 			feelslikeF: 0,
 			humidity: 0,
+			hourly: [],
+			daily: [],
 		},
 		searchAddress: '',
 		searchError: false,
@@ -26,7 +28,8 @@ const weatherApp = new Vue({
 		try {
 			this.setLoading();
 			const location = await this.getLocationByIp();
-			const weather = await this.getWeather(location);
+            const weather = await this.getWeather(location);
+            console.log(weather);
 			this.setWeather(weather);
 		} catch (err) {
 			showPopup(
@@ -64,7 +67,6 @@ const weatherApp = new Vue({
 		},
 		async getCurrentLocationWeather({ coords }) {
 			try {
-				console.log(coords);
 				const res = await axios.get(
 					`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.latitude}&longitude=${coords.longitude}`
 				);
