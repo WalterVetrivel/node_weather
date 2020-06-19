@@ -17,12 +17,8 @@ const getWeather = async (req, res) => {
 		const weatherData = {
 			location: location.place_name,
 			weather: constructWeatherObject(weather.current),
-			hourly: weather.hourly
-				.slice(1, 6)
-				.map(weather => constructWeatherObject(weather)),
-			daily: weather.daily
-				.slice(1)
-				.map(weather => constructWeatherObject(weather)),
+			hourly: weather.hourly.slice(1, 6).map(w => constructWeatherObject(w)),
+			daily: weather.daily.slice(1).map(w => constructWeatherObject(w)),
 		};
 
 		return res.status(200).json(weatherData);

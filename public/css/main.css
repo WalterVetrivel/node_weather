@@ -375,6 +375,16 @@ body {
   color: #0c0c0c;
 }
 
+.btn--danger {
+  border-color: #f44336;
+  color: #f44336;
+}
+
+.btn--danger:hover {
+  background-color: #f44336;
+  color: #f3efe0;
+}
+
 .input {
   padding: 0.5rem;
   width: 100%;
@@ -440,7 +450,7 @@ body {
 }
 
 .modal__btn {
-  display: inline-block;
+  display: block;
   margin-left: auto;
 }
 

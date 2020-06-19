@@ -46,4 +46,14 @@
 			color: $color-dark;
 		}
 	}
+
+	&--danger {
+		border-color: $color-error;
+		color: $color-error;
+
+		&:hover {
+			background-color: $color-error;
+			color: $color-light;
+		}
+	}
 }
