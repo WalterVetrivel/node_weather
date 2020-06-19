@@ -8,7 +8,10 @@ const constructWeatherObject = weather => {
 		dateTime: new Date(weather.dt * 1000),
 		temperature: !isNaN(weather.temp)
 			? Math.round(weather.temp)
-			: { min: weather.temp.min, max: weather.temp.max },
+			: {
+					min: Math.round(weather.temp.min),
+					max: Math.round(weather.temp.max),
+			  },
 		feelslike: !isNaN(weather.feels_like)
 			? Math.round(weather.feels_like)
 			: null,

@@ -22,12 +22,12 @@
 .credits {
 	&__grid {
 		display: grid;
-		grid-gap: 8px;
+		grid-gap: $grid-gap;
 	}
 
 	&__item {
 		padding: 2em 1em;
-		background-color: lighten($color-dark-2, 10%);
+		background-color: $card-bg;
 		border-radius: $border-radius;
 		text-align: center;
 		display: flex;

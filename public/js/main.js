@@ -29,7 +29,6 @@ const weatherApp = new Vue({
 			this.setLoading();
 			const location = await this.getLocationByIp();
 			const weather = await this.getWeather(location);
-			console.log(weather);
 			this.setWeather(weather);
 		} catch (err) {
 			showPopup(
@@ -67,17 +66,19 @@ const weatherApp = new Vue({
 		},
 		async getCurrentLocationWeather({ coords }) {
 			try {
+				this.setLoading();
 				const res = await axios.get(
 					`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.latitude}&longitude=${coords.longitude}`
 				);
 
-				if (!res.data.city) throw new Error();
-
+				if (!res.data.city) {
+					throw new Error();
+				}
 				const location = `${res.data.city} ${
 					res.data.principalSubdivision || ''
 				}`;
-				const weather = await this.getWeather(location);
 
+				const weather = await this.getWeather(location);
 				this.setWeather(weather);
 			} catch (err) {
 				showPopup(
@@ -115,7 +116,7 @@ const weatherApp = new Vue({
 				throw err;
 			}
 		},
-		async setWeather({ location, weather }) {
+		async setWeather({ location, weather, daily, hourly }) {
 			this.error = false;
 			this.loading = false;
 			this.weather.location = location;
@@ -129,6 +130,8 @@ const weatherApp = new Vue({
 			this.temperatureClassName = `weather__temp--${this.getTemperatureClass(
 				weather.temperature
 			)}`;
+			this.weather.daily = daily.map(this.transformForecast);
+			this.weather.hourly = hourly.map(this.transformForecast);
 		},
 		getTemperatureClass(temperature) {
 			return temperature < 18
@@ -155,6 +158,27 @@ const weatherApp = new Vue({
 			else icon = 'sun';
 
 			return icon;
+		},
+		getPrintableDateTime(dateTime) {
+			const dateString = new Date(dateTime)
+				.toString()
+				.split(' ')
+				.slice(0, 3)
+				.join(' ');
+			const hours = new Date(dateTime).getHours();
+			const timeString = `${hours % 12 !== 0 ? hours % 12 : '00'} ${
+				hours <= 12 ? 'AM' : 'PM'
+			}`;
+
+			return `${dateString} ${timeString}`;
+		},
+		transformForecast(fc) {
+			// fc - forecast
+			return {
+				...fc,
+				dateTime: this.getPrintableDateTime(fc.dateTime),
+				icon: getIconPath(this.getIcon(fc.status)),
+			};
 		},
 		setLoading() {
 			this.loading = true;

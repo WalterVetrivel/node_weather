@@ -16,77 +16,163 @@
 
 <body class="body">
     <div class="body__content">
-
         {{>navigation}}
         {{>watermark}}
         <div class="container">
-            <main class="home" id="weather-app">
-                <header class="hero">
-                    <h1 class="hero__title">
-                        Check the current weather anywhere, anytime.
-                    </h1>
-                    <p class="hero__subtitle">
-                        Is it raining in Canberra? Is it sunny in Sydney? Find out.
-                    </p>
+            <section class="main" id="weather-app">
+                <div class="home">
+                    <header class="hero">
+                        <h1 class="hero__title">
+                            Check the current weather anywhere, anytime.
+                        </h1>
+                        <p class="hero__subtitle">
+                            Is it raining in Canberra? Is it sunny in Sydney? Find out.
+                        </p>
 
-                    <form class="hero__form" v-on:submit.prevent="searchWeatherHandler">
-                        <label for="address">
-                            <img src="img/icons/location.svg" alt="pin" class="label__icon">
-                            Enter location/address
-                        </label>
+                        <form class="hero__form" v-on:submit.prevent="searchWeatherHandler">
+                            <label for="address">
+                                <img src="img/icons/location.svg" alt="pin" class="label__icon">
+                                Enter location/address
+                            </label>
 
-                        <div class="form__group">
-                            <input type="text" id="address" name="address"
-                                placeholder="Eg., 20 Northern Street, Canberra" class="input" v-model="searchAddress"
-                                v-on:keyup="validateSearchHandler" required>
-                            <button type="submit" class="btn btn--primary">Get Weather</button>
+                            <div class="form__group">
+                                <input type="text" id="address" name="address"
+                                    placeholder="Eg., 20 Northern Street, Canberra" class="input"
+                                    v-model="searchAddress" v-on:keyup="validateSearchHandler" required>
+                                <button type="submit" class="btn btn--primary">Get Weather</button>
+                            </div>
+
+                            <small class="text--error" v-if="this.searchError">
+                                Please enter an address
+                            </small>
+                        </form>
+
+                        <div class="hero__current">
+                            or&nbsp;&nbsp;
+                            <button class="btn btn--secondary" v-on:click="getCurrentLocation">
+                                <img src="img/icons/crosshair.svg" alt="location" class="btn__icon">
+                                Use current location
+                            </button>
                         </div>
+                    </header>
 
-                        <small class="text--error" v-if="this.searchError">
-                            Please enter an address
+                    <div class="weather">
+                        <p class="weather__location">${weather.location}</h3>
+                        <p class="weather__status">
+                            Current Weather: <strong>${weather.status}</strong>
+                        </p>
+
+                        <img :src="weather.icon" :alt="weather.status" class="weather__icon">
+                        <small class="weather__attrib">
+                            Icons made by
+                            <a href="https://www.flaticon.com/authors/freepik" title="Freepik" class="link link--alt">
+                                Freepik
+                            </a> from
+                            <a href="https://www.flaticon.com/" title="Flaticon" class="link link--alt">
+                                www.flaticon.com
+                            </a>
                         </small>
-                    </form>
 
-                    <div class="hero__current">
-                        or&nbsp;&nbsp;
-                        <button class="btn btn--secondary" v-on:click="getCurrentLocation">
-                            <img src="img/icons/crosshair.svg" alt="location" class="btn__icon">
-                            Use current location
-                        </button>
+                        <p class="weather__summary" v-if="!error && !loading">
+                            It is currently
+                            <img src="img/icons/temp.svg" alt="Temp" class="text__icon">
+                            <span :class=temperatureClassName>${weather.temperature}&deg;C
+                                (${weather.temperatureF}&deg;F)</span> and it feels like
+                            <img src="img/icons/temp.svg" alt="Temp" class="text__icon">
+                            <span :class=temperatureClassName>${weather.feelslike}&deg;C
+                                (${weather.feelslikeF}&deg;F)</span>.
+                            <br>
+                            The
+                            humidity is <strong>${weather.humidity}</strong>.
+                        </p>
+                        <p class="weather__summary" v-if="loading">
+                            Loading...
+                        </p>
+                        <p class="weather__summary" v-if="error">Unable to fetch weather information at the moment.
+                            Please
+                            ensure
+                            you've provided a valid location and try again later.</p>
                     </div>
-                </header>
-
-                <div class="weather">
-                    <p class="weather__location">${weather.location}</h3>
-                    <p class="weather__status">
-                        Current Weather: <strong>${weather.status}</strong>
-                    </p>
-
-                    <img :src="weather.icon" :alt="weather.status" class="weather__icon">
-                    <small class="weather__attrib">
-                        Icons made by
-                        <a href="https://www.flaticon.com/authors/freepik" title="Freepik" class="link link--alt">
-                            Freepik
-                        </a> from
-                        <a href="https://www.flaticon.com/" title="Flaticon" class="link link--alt">
-                            www.flaticon.com
-                        </a>
-                    </small>
-
-                    <p class="weather__summary" v-if="!error">
-                        It is currently <span :class=temperatureClassName>${weather.temperature}&deg;C
-                            (${weather.temperatureF}&deg;F)</span> and it feels like <span
-                            :class=temperatureClassName>${weather.feelslike}&deg;C (${weather.feelslikeF}&deg;F)</span>.
-                        The
-                        humidity is <strong>${weather.humidity}</strong>.
-                    </p>
-                    <p class="weather__summary" v-else>Unable to fetch weather information at the moment. Please ensure
-                        you've provided a valid location and try again later.</p>
                 </div>
-            </main>
-            {{>modal}}
-            {{>toast}}
+
+                <div class="hourly">
+                    <h1 class="heading heading--main">Next 5 hours</h1>
+
+                    <div class="hourly__grid" v-if="weather.hourly.length > 0">
+                        <div class="hourly__forecast" v-for="forecast in weather.hourly">
+                            <p class="hourly__time">
+                                ${forecast.dateTime.split(' ')[3]}
+                                ${forecast.dateTime.split(' ')[4]}
+                            </p>
+
+                            <p class="hourly__temperature">
+                                <img src="img/icons/temp.svg" alt="Temp" class="text__icon">
+                                ${forecast.temperature}&deg;C
+                                (${forecast.temperatureF}&deg;F)
+                            </p>
+
+                            <p class="hourly__status">
+                                <img :src="forecast.icon" :alt="forecast.status" class="text__icon">
+                                ${forecast.status.split(' ')[0]}
+                            </p>
+                        </div>
+                    </div>
+                    <p class="text" v-else>Temperatures for the next 5 hours will be shown here.</p>
+                </div>
+
+                <div class="daily">
+                    <h1 class="heading heading--main">Foreacast for the next 7 days</h1>
+
+                    <div class="daily__grid" v-if="weather.daily.length > 0">
+                        <div class="daily__forecast" v-for="forecast in weather.daily">
+                            <img :src="forecast.icon" alt="forecast.status" class="daily__icon">
+
+                            <div class="daily__content">
+                                <p class="daily__status">
+                                    <img :src="forecast.icon" alt="Min" class="text__icon">
+                                    <span>
+                                        <strong class="text--primary">Summary: </strong>${forecast.status}
+                                    </span>
+                                </p>
+
+                                <p class="daily__min">
+                                    <img src="img/icons/min.svg" alt="Min" class="text__icon">
+                                    <span>
+                                        <strong class="text--primary">Min temp: </strong>
+                                        ${forecast.temperature.min}&deg;C (${forecast.temperatureF.min})&deg;F
+                                    </span>
+                                </p>
+
+                                <p class="daily__max">
+                                    <img src="img/icons/max.svg" alt="Min" class="text__icon">
+                                    <span>
+                                        <strong class="text--primary">Max temp: </strong>
+                                        ${forecast.temperature.max}&deg;C (${forecast.temperatureF.max})&deg;F
+                                    </span>
+                                </p>
+                            </div>
+
+                            <div class="daily__date">
+                                <p class="daily__day">
+                                    ${forecast.dateTime.split(' ')[0]}
+                                </p>
+                                <p class="daily__dt">
+                                    ${forecast.dateTime.split(' ')[1]}&nbsp;${forecast.dateTime.split(' ')[2]}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text" v-else>
+                        Forecast for the next 7 days will appear here.
+                    </p>
+                </div>
+            </section>
+
         </div>
+        {{>modal}}
+        {{>toast}}
+    </div>
     </div>
     {{>footer}}
     {{>scripts}}

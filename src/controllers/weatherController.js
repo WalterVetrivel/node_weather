@@ -21,7 +21,7 @@ const getWeather = async (req, res) => {
 				.slice(1, 6)
 				.map(weather => constructWeatherObject(weather)),
 			daily: weather.daily
-				.slice(1, 6)
+				.slice(1)
 				.map(weather => constructWeatherObject(weather)),
 		};
 
