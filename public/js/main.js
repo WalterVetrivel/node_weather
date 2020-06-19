@@ -25,18 +25,7 @@ const weatherApp = new Vue({
 		error: false,
 	},
 	async created() {
-		try {
-			this.setLoading();
-			const location = await this.getLocationByIp();
-			const weather = await this.getWeather(location);
-			this.setWeather(weather);
-		} catch (err) {
-			showPopup(
-				'Error',
-				`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
-			);
-			this.setError();
-		}
+		await this.getCurrentIpWeather();
 	},
 	methods: {
 		async getLocationByIp() {
@@ -55,13 +44,10 @@ const weatherApp = new Vue({
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(
 					this.getCurrentLocationWeather,
-					this.geoLocationError
+					this.getCurrentIpWeather
 				);
 			} else {
-				showPopup(
-					'Error',
-					`Cannot access device location at the moment. Make sure you click allow on the popup so that Weather Assistant can access your location.`
-				);
+				this.getCurrentIpWeather();
 			}
 		},
 		async getCurrentLocationWeather({ coords }) {
@@ -78,6 +64,20 @@ const weatherApp = new Vue({
 					res.data.principalSubdivision || ''
 				}`;
 
+				const weather = await this.getWeather(location);
+				this.setWeather(weather);
+			} catch (err) {
+				showPopup(
+					'Error',
+					`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
+				);
+				this.setError();
+			}
+		},
+		async getCurrentIpWeather() {
+			try {
+				this.setLoading();
+				const location = await this.getLocationByIp();
 				const weather = await this.getWeather(location);
 				this.setWeather(weather);
 			} catch (err) {
@@ -189,6 +189,7 @@ const weatherApp = new Vue({
 		},
 		setError() {
 			this.error = true;
+			this.loading = false;
 			this.weather.location = 'Unknown';
 			this.weather.status = 'Unknown';
 			this.weather.temperature = 0;
@@ -198,13 +199,6 @@ const weatherApp = new Vue({
 			this.weather.humidity = 0;
 			this.weather.icon = getIconPath('error');
 			this.temperatureClassName = 'hot';
-		},
-		geoLocationError() {
-			showPopup(
-				'Error',
-				`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
-			);
-			this.setError();
 		},
 		validateSearch() {
 			return this.searchAddress.trim() !== '';
