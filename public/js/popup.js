@@ -23,6 +23,8 @@ const showToast = (msg, isError = true) => {
 	toastMessage.innerText = msg;
 	toast.classList.add('toast-error');
 	toast.classList.remove('toast-hide');
+
+	setTimeout(removeToast, 5000);
 };
 
 const removeToast = () => {

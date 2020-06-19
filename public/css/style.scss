@@ -297,6 +297,37 @@ body {
 	}
 }
 
+.current-location {
+	display: flex;
+	align-items: center;
+	margin-top: 1rem;
+}
+
+.btn-secondary {
+	border: 1px solid $color-light;
+	color: $color-light;
+	outline: none;
+	border-radius: $border-radius;
+	background-color: transparent;
+	align-items: center;
+	display: flex;
+	padding: 0.5em 1em;
+	font: inherit;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+
+	&:hover {
+		background-color: $color-light;
+		color: $color-dark;
+	}
+}
+
+.btn-icon {
+	display: inline-block;
+	width: 1rem;
+	margin-right: 4px;
+}
+
 .weather {
 	background-color: lighten($color-dark-2, 10%);
 	padding: 2em 1.25em;
@@ -553,8 +584,7 @@ body {
 		}
 
 		&-toggle,
-		&-mobile,
-		.backdrop {
+		&-mobile {
 			display: none;
 		}
 	}
@@ -574,7 +604,7 @@ body {
 		}
 
 		input {
-			width: 45%;
+			width: 60%;
 		}
 	}
 

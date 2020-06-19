@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simple web app to check the current weather">
+    <meta name="author" content="Walter Selvakumar">
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <title>Check Current Weather | Weather Assistant</title>
+</head>
+
+<body>
+    {{>navigation}}
+    {{>watermark}}
+    <div class="container">
+        <main id="weather-app">
+            <header class="hero">
+                <h1 class="hero-title">Check the current weather anywhere, anytime.</h1>
+                <p class="hero-subtitle">Is it raining in Canberra? Is it sunny in Sydney? Find out.</p>
+                <form class="weather-form" v-on:submit.prevent="searchWeatherHandler">
+                    <label for="address"><img src="img/icons/location.svg" alt="pin" class="label-icon">Enter
+                        location/address</label>
+                    <div class="input-group">
+                        <input type="text" id="address" name="address" placeholder="Eg., 20 Northern Street, Canberra"
+                            class="address-input" v-model="searchAddress" v-on:keyup="validateSearchHandler" required>
+                        <button type="submit" class="btn-cta">Get Weather</button>
+                    </div>
+                    <small class="error" v-if="this.searchError">Please enter an address</small>
+                </form>
+                <div class="current-location">
+                    or&nbsp;&nbsp;
+                    <button class="btn-secondary" v-on:click="getCurrentLocation">
+                        <img src="img/icons/crosshair.svg" alt="location" class="btn-icon">Use current location
+                    </button>
+                </div>
+            </header>
+
+            <div class="weather">
+                <p class="weather-location">${weather.location}</h3>
+                <p class="weather-status">
+                    Current Weather: <strong>${weather.status}</strong>
+                </p>
+                <img :src="weather.icon" :alt="weather.icon" class="weather-icon">
+                <small>
+                    Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
+                        href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+                </small>
+                <p class="weather-summary" v-if="!error">
+                    It is currently <span :class=temperatureClassName>${weather.temperature}&deg;C
+                        (${weather.temperatureF}&deg;F)</span> and it feels like <span
+                        :class=temperatureClassName>${weather.feelslike}&deg;C (${weather.feelslikeF}&deg;F)</span>. The
+                    humidity is <strong>${weather.humidity}</strong>.
+                </p>
+                <p class="weather-summary" v-else>Unable to fetch weather information at the moment. Please ensure
+                    you've provided a valid location and try again later.</p>
+            </div>
+        </main>
+        {{>modal}}
+        {{>toast}}
+    </div>
+    {{>footer}}
+    {{>scripts}}
+</body>
+
+</html>

@@ -7,10 +7,13 @@ const { getLocation } = require('../controllers/locationController');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-	res.render('index', {
+	/* res.render('index', {
 		home: true,
 		title: 'Check the current weather anywhere, anytime.',
 		subtitle: 'Is it raining in Canberra? Is it sunny in Sydney? Find out.',
+	}); */
+	res.render('index-vue', {
+		home: true,
 	});
 });
 
