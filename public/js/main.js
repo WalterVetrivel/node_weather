@@ -1,219 +1,198 @@
-// Selecting DOM Elements
-const statusElement = document.querySelector('.weather-status > strong');
-const locationElement = document.querySelector('.weather-location');
-const iconElement = document.querySelector('.weather-icon');
-const summaryElement = document.querySelector('.weather-summary');
-
-const addressInput = document.querySelector('.address-input');
-const errorElement = document.querySelector('small.error');
-const weatherForm = document.querySelector('.weather-form');
-
-// Get Location
-const getIp = async () => {
-	try {
-		const res = await axios.get('https://api.ipify.org?format=json');
-		const ip = res.data.ip;
-		return ip;
-	} catch (err) {
-		throw err;
-	}
-};
-
-const getLocationByIp = async ip => {
-	const url = '/location/ip';
-	try {
-		const res = await axios.get(url);
-		return `${res.data.city}, ${res.data.regionName}`;
-	} catch (err) {
-		showToast(
-			'Cannot fetch location by IP. Using Canberra as default location.'
-		);
-		return 'Canberra';
-	}
-};
-
-// Get Weather
-const getWeather = async address => {
-	const url = `/weather?address=${encodeURIComponent(address)}`;
-
-	try {
-		const res = await axios.get(url);
-		return res.data;
-	} catch (err) {
-		updateDOMError();
-		showPopup(
-			'Error',
-			`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
-		);
-	}
-};
-
-const getWeatherFromIp = async () => {
-	try {
-		const ip = await getIp();
-		const location = await getLocationByIp(ip);
-
-		await setWeather(location);
-	} catch (err) {
-		updateDOMError();
-		showPopup(
-			'Error',
-			`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
-		);
-	}
-};
-
-const getWeatherFromCoords = async ({ coords } = {}) => {
-	try {
-		const res = await axios.get(
-			`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.latitude}&longitude=${coords.longitude}`
-		);
-
-		if (!res.data.city) throw new Error();
-
-		const location = `${res.data.city} ${res.data.principalSubdivision || ''}`;
-
-		await setWeather(location);
-	} catch (err) {
-		updateDOMError();
-		showPopup(
-			'Error',
-			`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
-		);
-	}
-};
-
-const setWeather = async location => {
-	try {
-		const data = await getWeather(location);
-		updateDOM(data);
-	} catch (err) {
-		updateDOMError();
-	}
-};
-
-// Update Weather DOM
-const setLocation = location => {
-	locationElement.innerText = location;
-};
-
-const setStatus = status => {
-	statusElement.innerText = status;
-};
-
-const getIcon = status => {
-	status = status.toLowerCase();
-	let icon;
-
-	if (status.includes('sun')) icon = 'sun';
-	else if (status.includes('partly')) icon = 'cloudy';
-	else if (status.includes('cloud') || status.includes('overcast'))
-		icon = 'clouds';
-	else if (status.includes('rain')) icon = 'rain';
-	else if (status.includes('snow')) icon = 'snowflake';
-	else if (status.includes('thunder')) icon = 'bolt';
-	else if (status.includes('hail')) icon = 'hail';
-	else if (status.includes('wind')) icon = 'wind';
-	else if (status.includes('loading')) icon = 'loading';
-	else if (status.includes('unknown')) icon = 'error';
-	else icon = 'sun';
-
+const getIconPath = icon => {
 	return `img/icons/${icon}.svg`;
 };
 
-const setIcon = icon => {
-	iconElement.setAttribute('src', icon);
-};
+const weatherApp = new Vue({
+	el: '#weather-app',
+	delimiters: ['${', '}'],
+	data: {
+		weather: {
+			location: 'Please provide a location',
+			status: 'The current weather will appear here',
+			icon: getIconPath('location'),
+			temperature: 0,
+			temperatureF: 0,
+			feelslike: 0,
+			feelslikeF: 0,
+			humidity: 0,
+			hourly: [],
+			daily: [],
+		},
+		searchAddress: '',
+		searchError: false,
+		temperatureClassName: 'weather__temp--cold',
+		loading: false,
+		error: false,
+	},
+	async created() {
+		try {
+			this.setLoading();
+			const location = await this.getLocationByIp();
+			const weather = await this.getWeather(location);
+			console.log(weather);
+			this.setWeather(weather);
+		} catch (err) {
+			showPopup(
+				'Error',
+				`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
+			);
+			this.setError();
+		}
+	},
+	methods: {
+		async getLocationByIp() {
+			const url = '/location/ip';
+			try {
+				const res = await axios.get(url);
+				return `${res.data.city} ${res.data.regionName}`;
+			} catch (err) {
+				showToast(
+					'Cannot fetch location by IP. Using Canberra as default location.'
+				);
+				return 'Canberra';
+			}
+		},
+		async getCurrentLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(
+					this.getCurrentLocationWeather,
+					this.geoLocationError
+				);
+			} else {
+				showPopup(
+					'Error',
+					`Cannot access device location at the moment. Make sure you click allow on the popup so that Weather Assistant can access your location.`
+				);
+			}
+		},
+		async getCurrentLocationWeather({ coords }) {
+			try {
+				const res = await axios.get(
+					`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${coords.latitude}&longitude=${coords.longitude}`
+				);
 
-const getSummary = ({
-	temperature,
-	feelslike,
-	temperatureF,
-	feelslikeF,
-	humidity,
-} = {}) => {
-	let summary = '';
+				if (!res.data.city) throw new Error();
 
-	try {
-		if (temperature === undefined) throw new Error();
+				const location = `${res.data.city} ${
+					res.data.principalSubdivision || ''
+				}`;
+				const weather = await this.getWeather(location);
 
-		let className =
-			temperature < 18
+				this.setWeather(weather);
+			} catch (err) {
+				showPopup(
+					'Error',
+					`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
+				);
+				this.setError();
+			}
+		},
+		async searchWeatherHandler() {
+			try {
+				if (!this.validateSearch()) {
+					this.searchAddress = '';
+					this.searchError = true;
+				} else {
+					this.setLoading();
+					const weather = await this.getWeather(this.searchAddress);
+					this.setWeather(weather);
+				}
+			} catch (err) {
+				showPopup(
+					'Error',
+					`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
+				);
+				this.setError();
+			}
+		},
+		async getWeather(address) {
+			const url = `/weather?address=${encodeURIComponent(address)}`;
+
+			try {
+				const res = await axios.get(url);
+				return res.data;
+			} catch (err) {
+				throw err;
+			}
+		},
+		async setWeather({ location, weather }) {
+			this.error = false;
+			this.loading = false;
+			this.weather.location = location;
+			this.weather.status = weather.status;
+			this.weather.temperature = weather.temperature;
+			this.weather.temperatureF = weather.temperatureF;
+			this.weather.feelslike = weather.feelslike;
+			this.weather.feelslikeF = weather.feelslikeF;
+			this.weather.humidity = weather.humidity;
+			this.weather.icon = getIconPath(this.getIcon(weather.status));
+			this.temperatureClassName = `weather__temp--${this.getTemperatureClass(
+				weather.temperature
+			)}`;
+		},
+		getTemperatureClass(temperature) {
+			return temperature < 18
 				? 'cold'
 				: temperature >= 18 && temperature <= 27
 				? 'warm'
 				: 'hot';
+		},
+		getIcon(status) {
+			status = status.toLowerCase();
+			let icon;
 
-		summary = `It is currently <span class="${className}">${temperature}&deg;C (${temperatureF}&deg;F)</span> and it feels like <span class="${className}">${feelslike}&deg;C (${feelslikeF}&deg;F)</span>. The humidity is <strong>${humidity}</strong>.`;
-	} catch (err) {
-		summary = `No data. Please enter a different location or try again later.`;
-	}
+			if (status.includes('sun')) icon = 'sun';
+			else if (status.includes('partly')) icon = 'cloudy';
+			else if (status.includes('cloud') || status.includes('overcast'))
+				icon = 'clouds';
+			else if (status.includes('rain')) icon = 'rain';
+			else if (status.includes('snow')) icon = 'snowflake';
+			else if (status.includes('thunder')) icon = 'bolt';
+			else if (status.includes('hail')) icon = 'hail';
+			else if (status.includes('wind')) icon = 'wind';
+			else if (status.includes('loading')) icon = 'loading';
+			else if (status.includes('unknown')) icon = 'error';
+			else icon = 'sun';
 
-	return summary;
-};
-
-const setSummary = summary => {
-	summaryElement.innerHTML = summary;
-};
-
-const updateDOM = ({ location, weather } = {}) => {
-	setLocation(location);
-	setStatus(weather.status);
-	setIcon(getIcon(weather.status));
-	setSummary(getSummary(weather));
-};
-
-// Input validation
-const validateInput = e => {
-	const address = e.target.value.trim();
-	if (!address || address === '') setError();
-	else removeError();
-};
-
-const setError = () => {
-	addressInput.classList.add('error');
-	errorElement.classList.remove('hidden');
-};
-
-const removeError = () => {
-	addressInput.classList.remove('error');
-	errorElement.classList.add('hidden');
-};
-
-const updateDOMError = () => {
-	updateDOM({
-		location: 'UNKNOWN, please enter a valid location',
-		weather: { status: 'Unknown', temperature: undefined },
-	});
-};
-
-// Event handlers
-const getWeatherHandler = async e => {
-	e.preventDefault();
-	const address = addressInput.value.trim();
-
-	if (address && address.trim() !== '') {
-		try {
-			const data = await getWeather(address);
-			updateDOM(data);
-		} catch (err) {}
-	} else {
-		setError();
-	}
-};
-
-const initWeatherHandler = async () => {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(
-			getWeatherFromCoords,
-			getWeatherFromIp
-		);
-	} else {
-		getWeatherFromIp();
-	}
-};
-
-// Setting up event listeners
-addressInput.addEventListener('keyup', validateInput);
-weatherForm.addEventListener('submit', getWeatherHandler);
-window.addEventListener('load', initWeatherHandler);
+			return icon;
+		},
+		setLoading() {
+			this.loading = true;
+			this.error = false;
+			this.weather.location = this.searchAddress || 'Loading...';
+			this.weather.status = 'Fetching...';
+			this.weather.icon = getIconPath('loading');
+		},
+		setError() {
+			this.error = true;
+			this.weather.location = 'Unknown';
+			this.weather.status = 'Unknown';
+			this.weather.temperature = 0;
+			this.weather.temperatureF = 0;
+			this.weather.feelslike = 0;
+			this.weather.feelslikeF = 0;
+			this.weather.humidity = 0;
+			this.weather.icon = getIconPath('error');
+			this.temperatureClassName = 'hot';
+		},
+		geoLocationError() {
+			showPopup(
+				'Error',
+				`Unable to fetch weather information. Please check whether you have provided a valid location and try again.`
+			);
+			this.setError();
+		},
+		validateSearch() {
+			return this.searchAddress.trim() !== '';
+		},
+		validateSearchHandler(e) {
+			if (this.validateSearch()) {
+				e.target.classList.remove('input--error');
+				this.searchError = false;
+			} else {
+				e.target.classList.add('input--error');
+				this.searchError = true;
+			}
+		},
+	},
+});
