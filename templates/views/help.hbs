@@ -18,30 +18,85 @@
     <div class="body__content">
         {{>navigation}}
         {{>watermark}}
-        <section class="help">
-            <div class="container">
-                <h1 class="heading heading--main">{{title}}</h1>
-                <ol class="help__list text">
-                    <li>When you first visit Weather Assistant, your browser will ask you whether you'd like to allow us
-                        to
-                        use your current location to get weather information.</li>
-                    <li>If you click "Allow", Weather Assistant will fetch and display the current weather information
-                        for
-                        your location.</li>
-                    <li>If you click "Block", Weather Assistant will use your IP to display the current weather for your
-                        location based on your IP address. This would depend on where your ISP is located and will vary
-                        if
-                        you're using a VPN.</li>
-                    <li>To get the weather information for a different location, just type an address into the text
-                        input
-                        field labelled "Enter address/location" and click on the "Get Weather" button.</li>
-                    <li>Alternatively, you can also hit Enter on your keyboard once you're entered an address.</li>
-                    <li>Weather Assistant will fetch the current weather information for the location you entered and
-                        display it on your screen.</li>
-                    <li>To start checking the weather, <a href="/" class="link">click here</a>.</li>
-                </ol>
-            </div>
-        </section>
+        <div class="container">
+            <section class="help">
+                <h1 class="heading heading--main">How to use Weather Assistant?</h1>
+
+                <p class="mb-2">
+                    Weather Assistant is super easy to use. As soon as you visit our home page, we use your IP address
+                    to display the current weather at your location. In order to get the weather for a different
+                    location, please follow the steps below:
+                </p>
+                <ul class="help__list mb-2">
+                    <li>Type the address/location you want the weather information for in the provided text input field.
+                    </li>
+                    <li>Once you've typed the location, click on the "Get Weather" button or hit enter on your keyboard.
+                    </li>
+                    <li>If all goes well, you should see the current weather information in a matter of seconds.</li>
+                </ul>
+                <p class="mb-2">
+                    Alternatively, you can also click on the "Use Current Location" button to get the weather based on
+                    your location. In order to use this feature, you need to give permission to Weather Assistant to use
+                    your location information. To do so, follow the steps below:
+                </p>
+                <ul class="help__list mb-2">
+                    <li>On your PC, you should get a pop-up on the top left of your browser window saying that Weather
+                        Assistant wants to "know your location." You need to click "Allow" in order to get weather
+                        information based on your current location.</li>
+                    <li>
+                        If you're on mobile, you'll get a popup saying that Weather Assistant wants to use your device's
+                        location. Tap "Allow"*.<br>
+                        <small>
+                            <em class="text">
+                                *Note: If you haven't previously given permission to your browser to use your
+                                device's
+                                location, you'll need to tap allow a second time. If you don't, you need to manually go
+                                to the device settings and turn on location permission for your browser.
+                            </em>
+                        </small>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="faq">
+                <h1 class="heading heading--main">FAQ</h1>
+                <dl class="faq__questions">
+                    <dt class="faq__question">
+                        Why do I get an error whenever I try to get the weather for my current
+                        location?
+                    </dt>
+                    <dd class="faq__answer">
+                        It is possible that the first time you clicked on "Use current location",
+                        you clicked "Block" instead of allow. In order to clear this setting, click on the lock icon on
+                        the left of your address bar (which brings up the site settings), and use the location dropdown
+                        to change it to "Allow".
+                    </dd>
+
+                    <dt class="faq__question">
+                        Weather Assistant doesn't work on my browser, what do I do?
+                    </dt>
+                    <dd class="faq__answer">
+                        <p class="mb-2">
+                            Weather Assistant uses modern JavaScript and CSS, therefore, to ensure it
+                            works correctly, make sure you're using the latest version of one of the following
+                            browsers:
+                        </span>
+                        <ul class="help__list">
+                            <li>Microsoft Edge</li>
+                            <li>Google Chrome</li>
+                            <li>Mozilla Firefox</li>
+                            <li>Safari</li>
+                        </ul>
+                        <small>
+                            <em class="text">
+                                Note: Weather Assistant will <span class="text--error">NOT</span> work on Internet
+                                Explorer.
+                            </em>
+                        </small>
+                    </dd>
+                </dl>
+            </section>
+        </div>
     </div>
     {{>footer}}
     <script src="js/navigation.js"></script>

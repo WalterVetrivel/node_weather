@@ -3,7 +3,7 @@
 
 	&__title {
 		font-family: $title-font;
-		color: $color-light;
+		color: lighten($color-light, 20%);
 		width: 85%;
 		margin-bottom: 1rem;
 	}

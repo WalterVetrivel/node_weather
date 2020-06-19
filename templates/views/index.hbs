@@ -98,81 +98,91 @@
                 <div class="hourly">
                     <h1 class="heading heading--main">Next 5 hours</h1>
 
-                    <div class="hourly__grid" v-if="weather.hourly.length > 0">
-                        <div class="hourly__forecast" v-for="forecast in weather.hourly">
-                            <p class="hourly__time">
-                                ${forecast.dateTime.split(' ')[3]}
-                                ${forecast.dateTime.split(' ')[4]}
-                            </p>
+                    <div v-if="!loading && !error">
+                        <div class="hourly__grid" v-if="weather.hourly.length > 0">
+                            <div class="hourly__forecast" v-for="forecast in weather.hourly">
+                                <p class="hourly__time">
+                                    ${forecast.dateTime.split(' ')[3]}
+                                    ${forecast.dateTime.split(' ')[4]}
+                                </p>
 
-                            <p class="hourly__temperature">
-                                <img src="img/icons/temp.svg" alt="Temp" class="text__icon">
-                                ${forecast.temperature}&deg;C
-                                (${forecast.temperatureF}&deg;F)
-                            </p>
+                                <p class="hourly__temperature">
+                                    <img src="img/icons/temp.svg" alt="Temp" class="text__icon">
+                                    ${forecast.temperature}&deg;C
+                                    (${forecast.temperatureF}&deg;F)
+                                </p>
 
-                            <p class="hourly__status">
-                                <img :src="forecast.icon" :alt="forecast.status" class="text__icon">
-                                ${forecast.status.split(' ')[0]}
-                            </p>
+                                <p class="hourly__status">
+                                    <img :src="forecast.icon" :alt="forecast.status" class="text__icon">
+                                    ${forecast.status.split(' ')[0]}
+                                </p>
+                            </div>
                         </div>
+                        <p class="text" v-else>Temperatures for the next 5 hours will be shown here.</p>
                     </div>
-                    <p class="text" v-else>Temperatures for the next 5 hours will be shown here.</p>
+                    <div v-if="loading">Loading...</div>
+                    <div v-if="error">
+                        Unable to show hourly forecast at this time. Please try again later.
+                    </div>
                 </div>
 
                 <div class="daily">
                     <h1 class="heading heading--main">Foreacast for the next 7 days</h1>
 
-                    <div class="daily__grid" v-if="weather.daily.length > 0">
-                        <div class="daily__forecast" v-for="forecast in weather.daily">
-                            <img :src="forecast.icon" alt="forecast.status" class="daily__icon">
+                    <div v-if="!loading && !error">
+                        <div class="daily__grid" v-if="weather.daily.length > 0">
+                            <div class="daily__forecast" v-for="forecast in weather.daily">
+                                <img :src="forecast.icon" alt="forecast.status" class="daily__icon">
 
-                            <div class="daily__content">
-                                <p class="daily__status">
-                                    <img :src="forecast.icon" alt="Min" class="text__icon">
-                                    <span>
-                                        <strong class="text--primary">Summary: </strong>${forecast.status}
-                                    </span>
-                                </p>
+                                <div class="daily__content">
+                                    <p class="daily__status">
+                                        <img :src="forecast.icon" alt="Min" class="text__icon">
+                                        <span>
+                                            <strong class="text--primary">Summary: </strong>${forecast.status}
+                                        </span>
+                                    </p>
 
-                                <p class="daily__min">
-                                    <img src="img/icons/min.svg" alt="Min" class="text__icon">
-                                    <span>
-                                        <strong class="text--primary">Min temp: </strong>
-                                        ${forecast.temperature.min}&deg;C (${forecast.temperatureF.min})&deg;F
-                                    </span>
-                                </p>
+                                    <p class="daily__min">
+                                        <img src="img/icons/min.svg" alt="Min" class="text__icon">
+                                        <span>
+                                            <strong class="text--primary">Min temp: </strong>
+                                            ${forecast.temperature.min}&deg;C (${forecast.temperatureF.min})&deg;F
+                                        </span>
+                                    </p>
 
-                                <p class="daily__max">
-                                    <img src="img/icons/max.svg" alt="Min" class="text__icon">
-                                    <span>
-                                        <strong class="text--primary">Max temp: </strong>
-                                        ${forecast.temperature.max}&deg;C (${forecast.temperatureF.max})&deg;F
-                                    </span>
-                                </p>
-                            </div>
+                                    <p class="daily__max">
+                                        <img src="img/icons/max.svg" alt="Min" class="text__icon">
+                                        <span>
+                                            <strong class="text--primary">Max temp: </strong>
+                                            ${forecast.temperature.max}&deg;C (${forecast.temperatureF.max})&deg;F
+                                        </span>
+                                    </p>
+                                </div>
 
-                            <div class="daily__date">
-                                <p class="daily__day">
-                                    ${forecast.dateTime.split(' ')[0]}
-                                </p>
-                                <p class="daily__dt">
-                                    ${forecast.dateTime.split(' ')[1]}&nbsp;${forecast.dateTime.split(' ')[2]}
-                                </p>
+                                <div class="daily__date">
+                                    <p class="daily__day">
+                                        ${forecast.dateTime.split(' ')[0]}
+                                    </p>
+                                    <p class="daily__dt">
+                                        ${forecast.dateTime.split(' ')[1]}&nbsp;${forecast.dateTime.split(' ')[2]}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <p class="text" v-else>
-                        Forecast for the next 7 days will appear here.
-                    </p>
+                        <p class="text" v-else>
+                            Forecast for the next 7 days will appear here.
+                        </p>
+                    </div>
+                </div>
+                <div v-if="loading">Loading...</div>
+                <div v-if="error">
+                    Unable to show hourly forecast at this time. Please try again later.
                 </div>
             </section>
-
         </div>
         {{>modal}}
         {{>toast}}
-    </div>
     </div>
     {{>footer}}
     {{>scripts}}

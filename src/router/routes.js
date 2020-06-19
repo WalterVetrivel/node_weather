@@ -7,17 +7,12 @@ const { getLocation } = require('../controllers/locationController');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-	res.render('index', {
-		home: true,
-	});
+	res.render('index', { home: true });
 });
 
 router.get('/about', (req, res) => {
 	res.render('about', {
 		about: true,
-		title: 'What is Weather Assistant?',
-		description:
-			"Weather Assistant is a simple weather app that lets you see a summary of the current weather at your location (determined by your browser's geolocation API, you can choose to allow or deny permission, your IP is used if you deny permission) or at any location around the world you choose to enter. Weather Assistant uses cutting-edge JavaScript on your browser, so it is recommended that you use the latest version of Microsoft Edge, Google Chrome, Mozilla Firefox or an equivalent browser and avoid using Microsoft Internet Explorer.",
 		credits: [
 			{
 				name: 'OpenWeatherMap',
@@ -31,10 +26,7 @@ router.get('/about', (req, res) => {
 });
 
 router.get('/help', (req, res) => {
-	res.render('help', {
-		help: true,
-		title: 'How to use Weather Assistant?',
-	});
+	res.render('help', { help: true });
 });
 
 router.get('/location/ip', getLocation);
@@ -45,18 +37,10 @@ router.get(
 	getWeather
 );
 
-router.get('/help/*', (req, res) => {
-	res.render('404', {
-		title: 'Error 404',
-		message: 'Help article not found',
-	});
-});
-
 router.get('*', (req, res) => {
 	res.render('404', {
-		title: 'Error 404',
-		message: 'Page not found',
-		name: 'Walter Selvakumar',
+		title: 'Error 404 - Page Not Found',
+		message: 'It seems like the page you are looking for does not exist.',
 	});
 });
 

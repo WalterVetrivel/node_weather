@@ -3,8 +3,9 @@
 
 	&--main {
 		font-size: 1.75em;
-		margin-bottom: 1rem;
+		margin-bottom: 2rem;
 		text-align: center;
+		color: lighten($color-light, 20%);
 
 		&::after {
 			content: '';
