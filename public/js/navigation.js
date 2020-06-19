@@ -1,15 +1,15 @@
-const navbarToggle = document.querySelector('.navbar-toggle');
-const mobileNav = document.querySelector('.navbar-mobile');
-const navbarDismiss = document.querySelector('.navbar-dismiss');
+const navbarToggle = document.querySelector('.navbar__toggle');
+const mobileNav = document.querySelector('.navbar__mobile');
+const navbarDismiss = document.querySelector('.navbar__dismiss');
 const backdrop = document.querySelector('.backdrop');
 
 const showMobileNav = () => {
-	mobileNav.classList.remove('hide-nav');
+	mobileNav.classList.remove('navbar__mobile--hide');
 	backdrop.classList.remove('hidden');
 };
 
 const hideMobileNav = () => {
-	mobileNav.classList.add('hide-nav');
+	mobileNav.classList.add('navbar__mobile--hide');
 	backdrop.classList.add('hidden');
 };
 

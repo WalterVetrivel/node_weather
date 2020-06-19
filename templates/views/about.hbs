@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="A simple web app to check the current weather">
     <meta name="author" content="Walter Selvakumar">
-    <link rel="stylesheet" href="css/style.css" />
+    {{!-- <link rel="stylesheet" href="css/style.css" /> --}}
+    <link rel="stylesheet" href="css/main.css" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -14,28 +15,34 @@
     <title>Weather Assistant | About</title>
 </head>
 
-<body>
-    {{>navigation}}
-    {{>watermark}}
-    <div class="container">
-        <section class="about">
-            <div class="about-content">
-                <h1 class="page-heading">{{title}}</h1>
-                <p class="text">{{description}}</p>
-            </div>
-            <img src="img/icons/cloudy.svg" alt="Cloudy" class="about-img">
-        </section>
-        <section class="credits">
-            <h1 class="page-heading">Powered By</h1>
-            <div class="credits-wrapper">
-                {{#each credits}}
-                <p class="credit">
-                    {{this.name}}
-                    <a href="{{this.url}}" class="link" target="_blank" noreferrer noopener>Visit</a>
-                </p>
-                {{/each}}
-            </div>
-        </section>
+<body class="body">
+    <div class="body__content">
+        {{>navigation}}
+        {{>watermark}}
+        <div class="container">
+            <section class="about">
+                <div class="about__content">
+                    <h1 class="heading heading--main">{{title}}</h1>
+                    <p class="text">{{description}}</p>
+                </div>
+
+                <img src="img/icons/cloudy.svg" alt="Cloudy" class="about__img">
+            </section>
+
+            <section class="credits">
+                <h1 class="heading heading--main">Powered By</h1>
+                <div class="credits__grid">
+                    {{#each credits}}
+                    <div class="credits__item">
+                        <p class="credits__name">{{this.name}}</p>
+                        <a href="{{this.url}}" class="link" target="_blank" noreferrer noopener>
+                            Visit
+                        </a>
+                    </div>
+                    {{/each}}
+                </div>
+            </section>
+        </div>
     </div>
     {{>footer}}
     <script src="js/navigation.js"></script>

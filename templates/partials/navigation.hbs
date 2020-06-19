@@ -1,22 +1,52 @@
 <nav class="navbar">
-    <div class="navbar-container">
-        <a href="/" class="navbar-logo">
-            <img src="img/icons/cloudy.svg" alt="Logo" class="navbar-logo-icon">Weather Assistant
+    <div class="container--flex">
+        <a href="/" class="navbar__logo">
+            <img src="img/icons/cloudy.svg" alt="Logo" class="navbar__icon">Weather Assistant
         </a>
-        <ul class="navbar-nav">
-            <li class="navbar-item"><a class="navbar-link {{#if home}}active{{/if}}" href="/">Weather</a></li>
-            <li class="navbar-item"><a class="navbar-link {{#if about}}active{{/if}}" href="/about">About</a></li>
-            <li class="navbar-item"><a class="navbar-link {{#if help}}active{{/if}}" href="/help">Help</a></li>
+
+        <ul class="navbar__nav">
+            <li class="navbar__item">
+                <a class="navbar__link {{#if home}} navbar__link--active{{/if}}" href="/">
+                    Weather
+                </a>
+            </li>
+            <li class="navbar__item">
+                <a class="navbar__link {{#if about}} navbar__link--active{{/if}}" href="/about">
+                    About
+                </a>
+            </li>
+            <li class="navbar__item">
+                <a class="navbar__link {{#if help}} navbar__link--active{{/if}}" href="/help">
+                    Help
+                </a>
+            </li>
         </ul>
-        <button class="navbar-toggle">
-            <img src="img/menu.svg" alt="Menu" class="navbar-icon">
+
+        <button class="navbar__toggle">
+            <img src="img/menu.svg" alt="Menu">
         </button>
-        <div class="navbar-mobile hide-nav">
-            <button class="navbar-dismiss">Close X</button>
-            <ul class="navbar-mobile-nav">
-                <li class="navbar-item"><a class="navbar-link {{#if home}}active{{/if}}" href="/">Weather</a></li>
-                <li class="navbar-item"><a class="navbar-link {{#if about}}active{{/if}}" href="/about">About</a></li>
-                <li class="navbar-item"><a class="navbar-link {{#if help}}active{{/if}}" href="/help">Help</a></li>
+
+        <div class="navbar__mobile navbar__mobile--hide">
+            <button class="navbar__dismiss">Close X</button>
+
+            <ul class="navbar__nav--mobile">
+                <li class="navbar__item">
+                    <a class="navbar__link navbar__link--mobile {{#if home}} navbar__link--active{{/if}}" href="/">
+                        Weather
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <a class="navbar__link navbar__link--mobile {{#if about}} navbar__link--active{{/if}}"
+                        href="/about">
+                        About
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <a class="navbar__link navbar__link--mobile {{#if help}} navbar__link--active active{{/if}}"
+                        href="/help">
+                        Help
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

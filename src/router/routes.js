@@ -31,7 +31,6 @@ router.get('/about', (req, res) => {
 			{ name: 'Mapbox', url: 'https://www.mapbox.com/' },
 			{ name: 'IPStack', url: 'https://ipstack.com/' },
 			{ name: 'IPInfo', url: 'https://ipinfo.io/' },
-			{ name: 'Flaticon', url: 'https://www.flaticon.com/' },
 		],
 	});
 });

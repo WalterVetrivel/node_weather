@@ -1,0 +1,18 @@
+.help {
+	padding: 2em 0;
+
+	&__list {
+		list-style-position: inside;
+
+		li {
+			margin-bottom: 0.5rem;
+		}
+	}
+
+	@media only screen and (min-width: $large) {
+		&__list {
+			width: 80%;
+			margin: 0 auto;
+		}
+	}
+}

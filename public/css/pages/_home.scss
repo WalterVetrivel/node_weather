@@ -1,0 +1,124 @@
+.home {
+	.hero {
+		padding: 3.5em 0;
+
+		&__title {
+			font-family: $title-font;
+			color: $color-light;
+			width: 85%;
+			margin-bottom: 1rem;
+		}
+
+		&__subtitle {
+			color: lighten($color-dark-2, 50%);
+			margin-bottom: 1rem;
+		}
+
+		&__form {
+			text-align: center;
+			margin-bottom: 1rem;
+
+			label,
+			input {
+				display: block;
+				margin-bottom: 0.5rem;
+			}
+		}
+
+		&__current {
+			display: flex;
+			align-items: center;
+		}
+	}
+
+	.weather {
+		background-color: lighten($color-dark-2, 10%);
+		padding: 2em 1.25em;
+		border-radius: $border-radius;
+		text-align: center;
+		color: $color-light;
+		margin-bottom: 1em;
+
+		&__location,
+		&__status {
+			margin-bottom: 1rem;
+		}
+
+		&__location {
+			text-transform: uppercase;
+		}
+
+		&__status strong {
+			color: $color-primary;
+		}
+
+		&__icon {
+			display: block;
+			margin: 0 auto;
+			width: 75%;
+			margin-bottom: 1em;
+			max-width: 300px;
+		}
+
+		&__attrib {
+			color: lighten($color-dark-2, 65%);
+			margin-bottom: 1em;
+			display: block;
+		}
+
+		&__temp {
+			&--cold {
+				color: darken($color-secondary, 5%);
+			}
+
+			&--warm {
+				color: darken($color-primary, 5%);
+			}
+
+			&--hot {
+				color: lighten($color-error, 5%);
+			}
+		}
+	}
+
+	@media only screen and (min-width: $medium) {
+		.hero__form {
+			text-align: left;
+		}
+
+		.form__group {
+			display: flex;
+			justify-content: start;
+			align-items: center;
+
+			.input,
+			.btn {
+				margin: 2px;
+			}
+
+			.input {
+				width: 60%;
+			}
+		}
+	}
+
+	@media only screen and (min-width: $large) {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 4rem 0;
+
+		.hero {
+			padding: 0;
+
+			&__title {
+				font-size: 2.5em;
+			}
+		}
+
+		.hero,
+		.weather {
+			width: 48%;
+		}
+	}
+}

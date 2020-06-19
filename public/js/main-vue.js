@@ -20,7 +20,7 @@ const weatherApp = new Vue({
 		},
 		searchAddress: '',
 		searchError: false,
-		temperatureClassName: 'cold',
+		temperatureClassName: 'weather__temp--cold',
 		loading: false,
 		error: false,
 	},
@@ -28,8 +28,8 @@ const weatherApp = new Vue({
 		try {
 			this.setLoading();
 			const location = await this.getLocationByIp();
-            const weather = await this.getWeather(location);
-            console.log(weather);
+			const weather = await this.getWeather(location);
+			console.log(weather);
 			this.setWeather(weather);
 		} catch (err) {
 			showPopup(
@@ -126,7 +126,9 @@ const weatherApp = new Vue({
 			this.weather.feelslikeF = weather.feelslikeF;
 			this.weather.humidity = weather.humidity;
 			this.weather.icon = getIconPath(this.getIcon(weather.status));
-			this.temperatureClassName = this.getTemperatureClass(weather.temperature);
+			this.temperatureClassName = `weather__temp--${this.getTemperatureClass(
+				weather.temperature
+			)}`;
 		},
 		getTemperatureClass(temperature) {
 			return temperature < 18
@@ -185,10 +187,10 @@ const weatherApp = new Vue({
 		},
 		validateSearchHandler(e) {
 			if (this.validateSearch()) {
-				e.target.classList.remove('error');
+				e.target.classList.remove('input--error');
 				this.searchError = false;
 			} else {
-				e.target.classList.add('error');
+				e.target.classList.add('input--error');
 				this.searchError = true;
 			}
 		},
